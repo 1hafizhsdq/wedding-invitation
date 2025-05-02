@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class InvitationController extends Controller
 {
-    public function index($id,Request $request)
+    public function index(Request $request,$id=null)
     {
         $id = $request->id ?? 1;
         $to = $request->to;
