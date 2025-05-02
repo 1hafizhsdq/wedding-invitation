@@ -15,9 +15,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
         .header-scroll {
             background-color: white !important;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -112,7 +109,7 @@
                 
                 <p class="text-[#3A4A3A] text-lg mb-6">Dear: {{ $to }}</p>
                 
-                <a href="#brideGroom" class="float invitation-btn px-8 py-3 rounded-full text-lg font-medium shadow-md">
+                <a href="#brideGroom" id="openInvitation" class="float invitation-btn px-8 py-3 rounded-full text-lg font-medium shadow-md">
                     Open Invitation
                 </a>
             </div>
@@ -185,7 +182,7 @@
                                 <div class="p-8 md:w-1/3 border-b md:border-b-0 md:border-r border-[#F0F0F0]">
                                     <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">{{ $event->type }}</h3>
                                     <p class="text-[#C6B264] mb-1">{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->translatedFormat('l, d F Y') }}</p>
-                                    <p class="text-[#76856A]">08:00 WIB</p>
+                                    <p class="text-[#76856A]">{{ \Carbon\Carbon::parse($event->date)->translatedFormat('h:i') }} WIB</p>
                                 </div>
                                 <div class="p-8 md:w-2/3">
                                     <p class="text-[#76856A] mb-4">{{ $event->address }}</p>
@@ -416,6 +413,35 @@
                 document.getElementById("countdown").innerHTML = "THE WEDDING DAY HAS ARRIVED!";
             }
         }, 1000);
+
+        document.querySelector('.invitation-btn').addEventListener("click", function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 2000;
+            let start = null;
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const percent = Math.min(progress / duration, 1);
+                window.scrollTo(0, startPosition + distance * easeInOutCubic(percent));
+                if (progress < duration) {
+                    requestAnimationFrame(step);
+                }
+            }
+
+            // Fungsi easing
+            function easeInOutCubic(t) {
+                return t < 0.5
+                    ? 4 * t * t * t
+                    : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            }
+
+            requestAnimationFrame(step);
+        });
     </script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
