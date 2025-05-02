@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/{id?}', [InvitationController::class, 'index']);
 Route::get('/theme1', function () {
     return view('theme1.index');
 });

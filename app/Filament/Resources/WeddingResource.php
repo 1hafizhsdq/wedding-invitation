@@ -35,6 +35,8 @@ class WeddingResource extends Resource
             ->schema([
                 Card::make()->schema([
                     TextInput::make('name')->required(),
+                    TextInput::make('initial_name_groom')->required(),
+                    TextInput::make('initial_name_bride')->required(),
                     MarkdownEditor::make('note')->label('Tagline')->required(),
                     FileUpload::make('hero1')->required()->image(),
                     FileUpload::make('hero2')->image(),

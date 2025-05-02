@@ -80,6 +80,10 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="bg-[#F9FAF5] text-gray-800">
+    <audio controls autoplay loop>
+        <source src="/janjisuci.mp3" type="audio/mpeg">
+        Browsermu tidak mendukung tag audio, upgrade donk!
+    </audio>
     <div class="min-h-screen relative">
         <header id="mainHeader" class="flex justify-between items-center px-6 py-4 bg-[#F9FAF5] fixed top-0 left-0 right-0 z-50">
             {{-- Logo Kiri --}}
@@ -100,13 +104,13 @@
             <div class="mb-8 max-w-2xl">
                 <p class="hero-text text-[#76856A] text-lg md:text-xl tracking-widest mb-4">THE WEDDING OF</p>
                 <h1 class="hero-text text-4xl md:text-6xl lg:text-7xl font-medium text-[#3A4A3A] mb-6">
-                    <span>Hafizh</span>
+                    <span>{{ $wedding->initial_name_groom }}</span>
                     <span class="text-[#C6B264] mx-2 md:mx-4">&amp;</span>
-                    <span>Annisa</span>
+                    <span>{{ $wedding->initial_name_bride }}</span>
                 </h1>
-                <p class="hero-text text-[#76856A] text-xl md:text-2xl tracking-widest mb-8">3.05.2025</p>
+                <p class="hero-text text-[#76856A] text-xl md:text-2xl tracking-widest mb-8">{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->translatedFormat('d F Y') }}</p>
                 
-                <p class="text-[#3A4A3A] text-lg mb-6">Dear:</p>
+                <p class="text-[#3A4A3A] text-lg mb-6">Dear: {{ $to }}</p>
                 
                 <a href="#brideGroom" class="float invitation-btn px-8 py-3 rounded-full text-lg font-medium shadow-md">
                     Open Invitation
@@ -126,28 +130,16 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-12 items-center justify-center">
-                    <!-- Groom -->
-                    <div class="text-center max-w-xs" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine" data-aos-duration="2000">
-                        <div class="rounded-full overflow-hidden w-48 h-48 mx-auto mb-6 border-4 border-[#C6B264]">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" 
-                                alt="Groom" class="w-full h-full object-cover">
+                    @foreach ($wedding->Bride as $couple)
+                        <div class="text-center max-w-xs" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine" data-aos-duration="2000">
+                            <div class="rounded-full overflow-hidden w-48 h-48 mx-auto mb-6 border-4 border-[#C6B264]">
+                                <img src="{{ url('/storage/') }}/{{ $couple->photo }}" 
+                                    alt="Groom" class="w-full h-full object-cover">
+                            </div>
+                            <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">{{ $couple->name }}</h3>
+                            <p class="text-[#76856A]">{{ $couple->child }} {{ $couple->name_father }} - {{ $couple->name_mother }}</p>
                         </div>
-                        <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">Muhammad Hafizh Assidiq</h3>
-                        <p class="text-[#76856A]">Putra dari Bapak Shodikin - Ibu Ida Nufriyanti</p>
-                    </div>
-
-                    <!-- Divider (visible only on large screens) -->
-                    <div class="hidden md:block text-[#C6B264] text-4xl py-8">&</div>
-
-                    <!-- Bride -->
-                    <div class="text-center max-w-xs" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine" data-aos-duration="2000">
-                        <div class="rounded-full overflow-hidden w-48 h-48 mx-auto mb-6 border-4 border-[#C6B264]">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" 
-                                alt="Bride" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">Annisa Adnin</h3>
-                        <p class="text-[#76856A]">Putri dari Bapak Hajar Sadya Martono - Ibu Naning Fatmawati</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -187,34 +179,21 @@
                 <!-- Events -->
                 <div class="space-y-12 text-center">
                     <!-- Akad Nikah -->
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden" data-aos="flip-down" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-                        <div class="md:flex">
-                            <div class="p-8 md:w-1/3 border-b md:border-b-0 md:border-r border-[#F0F0F0]">
-                                <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">Akad Nikah</h3>
-                                <p class="text-[#C6B264] mb-1">Sabtu, 31 Mei 2025</p>
-                                <p class="text-[#76856A]">08:00 WIB</p>
-                            </div>
-                            <div class="p-8 md:w-2/3">
-                                <p class="text-[#76856A] mb-4">Gedung Serbaguna Widya Harja Kota Probolinggo Jawa Timur</p>
-                                <a href="#" class="text-[#C6B264] underline">OPEN MAP</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resepsi -->
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden" data-aos="flip-down" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-                        <div class="md:flex">
-                            <div class="p-8 md:w-1/3 border-b md:border-b-0 md:border-r border-[#F0F0F0]">
-                                <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">Resepsi Pernikahan</h3>
-                                <p class="text-[#C6B264] mb-1">Sabtu, 31 Mei 2025</p>
-                                <p class="text-[#76856A]">12:00 WIB</p>
-                            </div>
-                            <div class="p-8 md:w-2/3">
-                                <p class="text-[#76856A] mb-4">Gedung Serbaguna Widya Harja Kota Probolinggo Jawa Timur</p>
-                                <a href="#" class="text-[#C6B264] underline">OPEN MAP</a>
+                    @foreach ($wedding->Detail as $event)
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden" data-aos="flip-down" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+                            <div class="md:flex">
+                                <div class="p-8 md:w-1/3 border-b md:border-b-0 md:border-r border-[#F0F0F0]">
+                                    <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">{{ $event->type }}</h3>
+                                    <p class="text-[#C6B264] mb-1">{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->translatedFormat('l, d F Y') }}</p>
+                                    <p class="text-[#76856A]">08:00 WIB</p>
+                                </div>
+                                <div class="p-8 md:w-2/3">
+                                    <p class="text-[#76856A] mb-4">{{ $event->address }}</p>
+                                    <a href="{{ $event->maps }}" class="text-[#C6B264] underline">OPEN MAP</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -224,15 +203,14 @@
             <div class="max-w-6xl mx-auto">
                 <!-- Section Header -->
                 <div class="text-center mb-12">
-                    <h2 class="hero-text text-3xl md:text-4xl text-[#3A4A3A] mb-4" data-aos="fade-up" data-aos-duration="3000">Gallery Kita</h2>
+                    <h2 class="hero-text text-3xl md:text-4xl text-[#3A4A3A] mb-4" data-aos="fade-up" data-aos-duration="3000">Our Gallery</h2>
                     <p class="text-[#76856A] max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="3000">Potret moment kebersamaan mempelai</p>
                 </div>
 
                 <!-- Photo Grid -->
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <!-- Photo 1 -->
                     <div class="relative group overflow-hidden rounded-lg aspect-square">
-                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" 
+                        <img src="{{ url('/storage/') }}/{{ $wedding->Galery[0]->gallery1 }}" 
                             alt="Couple photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
                         <div class="absolute inset-0 bg-[#3A4A3A] bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -240,33 +218,45 @@
                             </svg>
                         </div>
                     </div>
-
-                    <!-- Photo 2 -->
                     <div class="relative group overflow-hidden rounded-lg aspect-square">
-                        <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" 
-                            alt="Couple photo 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
+                        <img src="{{ url('/storage/') }}/{{ $wedding->Galery[0]->gallery2 }}" 
+                            alt="Couple photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
                         <div class="absolute inset-0 bg-[#3A4A3A] bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                     </div>
-
-                    <!-- Photo 3 -->
                     <div class="relative group overflow-hidden rounded-lg aspect-square">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" 
-                            alt="Couple photo 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
+                        <img src="{{ url('/storage/') }}/{{ $wedding->Galery[0]->gallery3 }}" 
+                            alt="Couple photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
                         <div class="absolute inset-0 bg-[#3A4A3A] bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                     </div>
-
-                    <!-- Photo 4 -->
                     <div class="relative group overflow-hidden rounded-lg aspect-square">
-                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80" 
-                            alt="Couple photo 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
+                        <img src="{{ url('/storage/') }}/{{ $wedding->Galery[0]->gallery4 }}" 
+                            alt="Couple photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
+                        <div class="absolute inset-0 bg-[#3A4A3A] bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-lg aspect-square">
+                        <img src="{{ url('/storage/') }}/{{ $wedding->Galery[0]->gallery5 }}" 
+                            alt="Couple photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
+                        <div class="absolute inset-0 bg-[#3A4A3A] bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-lg aspect-square">
+                        <img src="{{ url('/storage/') }}/{{ $wedding->Galery[0]->gallery6 }}" 
+                            alt="Couple photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-aos="zoom-out-down" data-aos-duration="3000">
                         <div class="absolute inset-0 bg-[#3A4A3A] bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -318,44 +308,12 @@
                         
                         <div class="bg-white rounded-lg shadow-sm p-6 h-[500px] overflow-y-auto" data-aos="flip-down" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
                             <div class="space-y-6">
-                                <!-- Wish 1 -->
-                                <div class="pb-6 border-b border-[#F0F0F0]">
-                                    <h4 class="font-bold text-[#3A4A3A]">Sarah & Ahmed</h4>
-                                    <p class="text-[#76856A] mt-2">May you live to grow stronger will never make a day. Wishing you a lifetime of happiness together.</p>
-                                </div>
-                                
-                                <!-- Wish 2 -->
-                                <div class="pb-6 border-b border-[#F0F0F0]">
-                                    <h4 class="font-bold text-[#3A4A3A]">Family Nathosof</h4>
-                                    <p class="text-[#76856A] mt-2">A congratulation on your wedding trip. Look forward to your lives with joy and prosperity.</p>
-                                </div>
-                                
-                                <!-- Wish 3 -->
-                                <div class="pb-6 border-b border-[#F0F0F0]">
-                                    <h4 class="font-bold text-[#3A4A3A]">Fairman</h4>
-                                    <p class="text-[#76856A] mt-2">Follow up</p>
-                                </div>
-
-                                <!-- Additional sample wishes -->
-                                <div class="pb-6 border-b border-[#F0F0F0]">
-                                    <h4 class="font-bold text-[#3A4A3A]">Rina & Budi</h4>
-                                    <p class="text-[#76856A] mt-2">Wishing you both a marriage filled with love, laughter, and happiness.</p>
-                                </div>
-
-                                <div class="pb-6 border-b border-[#F0F0F0]">
-                                    <h4 class="font-bold text-[#3A4A3A]">Uncle David</h4>
-                                    <p class="text-[#76856A] mt-2">May your love grow stronger with each passing day.</p>
-                                </div>
-
-                                <div class="pb-6 border-b border-[#F0F0F0]">
-                                    <h4 class="font-bold text-[#3A4A3A]">College Friends</h4>
-                                    <p class="text-[#76856A] mt-2">So happy for you both! Can't wait to celebrate with you!</p>
-                                </div>
-
-                                <div class="pb-6">
-                                    <h4 class="font-bold text-[#3A4A3A]">Neighbor</h4>
-                                    <p class="text-[#76856A] mt-2">Congratulations on your wedding! Wishing you all the best.</p>
-                                </div>
+                                @foreach ($wedding->Wishes as $ucapan)
+                                    <div class="pb-6 border-b border-[#F0F0F0]">
+                                        <h4 class="font-bold text-[#3A4A3A]">{{ $ucapan->name }}</h4>
+                                        <p class="text-[#76856A] mt-2">{{ $ucapan->comment }}</p>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -375,48 +333,26 @@
                 <!-- Bank Accounts -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Bank Account 1 -->
-                    <div class="bg-[#F9FAF5] rounded-xl p-6 border border-[#E0E0E0]" data-aos="flip-right" data-aos-easing="ease-out-cubic" data-aos-duration="3000">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-[#3A4A3A] p-3 rounded-lg mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                                </svg>
+                    @foreach ($wedding->bride as $couple)
+                        <div class="bg-[#F9FAF5] rounded-xl p-6 border border-[#E0E0E0]" data-aos="flip-right" data-aos-easing="ease-out-cubic" data-aos-duration="3000">
+                            <div class="flex items-center mb-4">
+                                <div class="p-3 rounded-lg mr-4">
+                                    <img src="{{ url('/storage/') }}/{{ $couple->Bank->logo }}" style="height:30px; widht:auto;">
+                                </div>
+                                {{-- <h3 class="hero-text text-xl text-[#3A4A3A]">{{ $couple->Bank->name }}</h3> --}}
                             </div>
-                            <h3 class="hero-text text-xl text-[#3A4A3A]">Bank BCA</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div>
-                                <p class="text-[#76856A] text-sm">Nomor Rekening</p>
-                                <p class="text-[#3A4A3A] font-medium">123 456 7890</p>
-                            </div>
-                            <div>
-                                <p class="text-[#76856A] text-sm">Atas Nama</p>
-                                <p class="text-[#3A4A3A] font-medium">Muhammad Hafizh Assidiq</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bank Account 2 -->
-                    <div class="bg-[#F9FAF5] rounded-xl p-6 border border-[#E0E0E0]" data-aos="flip-right" data-aos-easing="ease-out-cubic" data-aos-duration="3000">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-[#3A4A3A] p-3 rounded-lg mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-                                </svg>
-                            </div>
-                            <h3 class="hero-text text-xl text-[#3A4A3A]">Bank Mandiri</h3>
-                        </div>
-                        <div class="space-y-3">
-                            <div>
-                                <p class="text-[#76856A] text-sm">Nomor Rekening</p>
-                                <p class="text-[#3A4A3A] font-medium">987 654 3210</p>
-                            </div>
-                            <div>
-                                <p class="text-[#76856A] text-sm">Atas Nama</p>
-                                <p class="text-[#3A4A3A] font-medium">Annisa Adnin</p>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="text-[#76856A] text-sm">Nomor Rekening</p>
+                                    <p class="text-[#3A4A3A] font-medium">{{ $couple->acc_number }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-[#76856A] text-sm">Atas Nama</p>
+                                    <p class="text-[#3A4A3A] font-medium">{{ $couple->acc_name }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
 
                 <!-- Note -->
                 <div class="mt-8 text-center text-[#76856A] text-sm">
@@ -432,10 +368,10 @@
                 <p class="hero-text text-xl md:text-2xl mb-6">Thank you for celebrating our special day with us</p>
                 
                 <!-- Wedding Date -->
-                <p class="text-[#C6B264] text-lg md:text-xl mb-8">22.06.2025</p>
+                <p class="text-[#C6B264] text-lg md:text-xl mb-8">{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->translatedFormat('d . m . Y') }}</p>
                 
                 <!-- Copyright -->
-                <p class="text-[#76856A] text-sm">© 2025 Hafizh & Annisa Wedding. All rights reserved.</p>
+                <p class="text-[#76856A] text-sm">© {{ date('Y') }} {{ $wedding->initial_name_groom }} & {{ $wedding->initial_name_bride }} Wedding. All rights reserved.</p>
                 
             </div>
         </footer>
@@ -452,7 +388,7 @@
         });
 
         // Set the date we're counting down to (June 3, 2025)
-            const countDownDate = new Date("June 3, 2025 00:00:00").getTime();
+            const countDownDate = new Date("{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->format('F d, Y H:i:s') }}").getTime();
 
         // Update the countdown every 1 second
         const x = setInterval(function() {

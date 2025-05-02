@@ -44,4 +44,9 @@ class Wedding extends Model
     {
         return $this->hasMany(Galery::class);
     }
+
+    public function Bank()
+    {
+        return $this->belongsTo(Bank::class,'bank_id','id');
+    }
 }
