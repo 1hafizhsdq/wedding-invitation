@@ -81,7 +81,6 @@
         <source src="/janjisuci.mp3" type="audio/mpeg">
         Browsermu tidak mendukung tag audio, upgrade donk!
     </audio> --}}
-    <audio id="playAudio" src="/janjisuci.mp3" autoplay></audio>
     <div class="min-h-screen relative">
         <header id="mainHeader" class="flex justify-between items-center px-6 py-4 bg-[#F9FAF5] fixed top-0 left-0 right-0 z-50">
             {{-- Logo Kiri --}}
@@ -109,7 +108,7 @@
                 <p class="hero-text text-[#76856A] text-xl md:text-2xl tracking-widest mb-8">{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->translatedFormat('d F Y') }}</p>
                 
                 <p class="text-[#3A4A3A] text-lg mb-6">Dear: {{ $to }}</p>
-                
+                <audio id="playAudio" src="/janjisuci.mp3" autoplay muted></audio>
                 <a href="#brideGroom" id="openInvitation" class="float invitation-btn px-8 py-3 rounded-full text-lg font-medium shadow-md">
                     Open Invitation
                 </a>
@@ -425,6 +424,12 @@
             const distance = targetPosition - startPosition;
             const duration = 2000;
             let start = null;
+            const audio = document.getElementById('playAudio');
+
+            audio.muted = false;
+            audio.play().catch((error) => {
+                console.log("Gagal memutar audio setelah unmute:", error);
+            });
 
             function step(timestamp) {
                 if (!start) start = timestamp;
