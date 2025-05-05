@@ -77,10 +77,12 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="bg-[#F9FAF5] text-gray-800">
-    <audio controls autoplay loop>
-        <source src="{{ asset('janjisuci.mp3') }}" type="audio/mpeg">
+    <audio autoplay id="playAudio">
+        <source src="/janjisuci.mp3" type="audio/mpeg">
         Browsermu tidak mendukung tag audio, upgrade donk!
     </audio>
+    <iframe src="/janjisuci.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+    </iframe> 
     <div class="min-h-screen relative">
         <header id="mainHeader" class="flex justify-between items-center px-6 py-4 bg-[#F9FAF5] fixed top-0 left-0 right-0 z-50">
             {{-- Logo Kiri --}}
@@ -441,6 +443,14 @@
             }
 
             requestAnimationFrame(step);
+
+            var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (!isChrome){
+                $('#iframeAudio').remove()
+            }
+            else {
+                $('#playAudio').remove()
+            }
         });
     </script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
