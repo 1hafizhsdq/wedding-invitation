@@ -78,7 +78,7 @@
 </head>
 <body class="bg-[#F9FAF5] text-gray-800">
     <audio controls autoplay loop>
-        <source src="/janjisuci.mp3" type="audio/mpeg">
+        <source src="{{ assets('janjisuci.mp3') }}" type="audio/mpeg">
         Browsermu tidak mendukung tag audio, upgrade donk!
     </audio>
     <div class="min-h-screen relative">
