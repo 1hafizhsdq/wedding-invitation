@@ -122,7 +122,7 @@
                     <h2 class="hero-text text-3xl md:text-4xl text-[#3A4A3A] mb-4" data-aos="fade-up" data-aos-duration="1000">Bride & Groom</h2>
                     <div class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="3001">
                         <p class="text-[#76856A] italic mb-6">"Dan di antara tanda-tanda kekuasaan-Nya ialah bahwa Dia menciptakan untukmu dari jenismu sendiri pasangan-pasangan hidup, agar kamu merasa tenteram kepadanya, dan Dia jadikan di antara kamu rasa kasih sayang dan belas kasihan. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi orang yang berpikir."</p>
-                        <p class="text-[#C6B264]">Quran 30:21</p>
+                        <p class="text-[#C6B264]">Surat Ar-Rum ayat 21</p>
                     </div>
                 </div>
 
@@ -278,7 +278,7 @@
                     <div class="lg:w-1/2 bg-white rounded-lg shadow-sm p-6 md:p-8">
                         <h3 class="hero-text text-xl text-[#3A4A3A] mb-6 border-b pb-2">Leave a Message</h3>
                         
-                        <form class="space-y-6">
+                        {{-- <form class="space-y-6">
                             <div>
                                 <label for="name" class="block text-[#3A4A3A] font-medium mb-2">Your Name</label>
                                 <input type="text" id="name" placeholder="Enter your name" 
@@ -296,7 +296,8 @@
                                     Send Wishes
                                 </button>
                             </div>
-                        </form>
+                        </form> --}}
+                        <livewire:create-wish>
                     </div>
 
                     <!-- Wishes List Section -->
@@ -305,12 +306,13 @@
                         
                         <div class="bg-white rounded-lg shadow-sm p-6 h-[500px] overflow-y-auto" data-aos="flip-down" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
                             <div class="space-y-6">
-                                @foreach ($wedding->Wishes as $ucapan)
+                                {{-- @foreach ($wedding->Wishes as $ucapan)
                                     <div class="pb-6 border-b border-[#F0F0F0]">
                                         <h4 class="font-bold text-[#3A4A3A]">{{ $ucapan->name }}</h4>
                                         <p class="text-[#76856A] mt-2">{{ $ucapan->comment }}</p>
                                     </div>
-                                @endforeach
+                                @endforeach --}}
+                                <livewire:list-wish>
                             </div>
                         </div>
                     </div>
