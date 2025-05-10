@@ -6,6 +6,7 @@ use App\Filament\Resources\GaleryResource\Pages;
 use App\Filament\Resources\GaleryResource\RelationManagers;
 use App\Models\Galery;
 use Filament\Forms;
+use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -45,6 +46,7 @@ class GaleryResource extends Resource
     {
         return $table
             ->columns([
+                BelongsToSelect::make('wedding_id')->label('Wedding')->relationship('wedding', 'name'),
                 ImageColumn::make('gallery1'),
                 ImageColumn::make('gallery2'),
                 ImageColumn::make('gallery3'),
