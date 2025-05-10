@@ -32,6 +32,7 @@ class GaleryResource extends Resource
     {
         return $form
             ->schema([
+                BelongsToSelect::make('wedding_id')->label('Wedding')->relationship('wedding', 'name'),
                 FileUpload::make('gallery1')->required()->image(),
                 FileUpload::make('gallery2')->required()->image(),
                 FileUpload::make('gallery3')->required()->image(),
@@ -46,7 +47,6 @@ class GaleryResource extends Resource
     {
         return $table
             ->columns([
-                BelongsToSelect::make('wedding_id')->label('Wedding')->relationship('wedding', 'name'),
                 ImageColumn::make('gallery1'),
                 ImageColumn::make('gallery2'),
                 ImageColumn::make('gallery3'),
