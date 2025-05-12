@@ -320,6 +320,7 @@
             </div>
         </section>
 
+        @if($wedding->id != 2)
         <!-- Wedding Gift Section -->
         <section class="py-16 px-4 bg-white">
             <div class="max-w-4xl mx-auto">
@@ -359,6 +360,7 @@
                 </div>
             </div>
         </section>
+        @endif
 
         <!-- Footer Section -->
         <footer class="py-12 px-4 bg-[#3A4A3A] text-white">
