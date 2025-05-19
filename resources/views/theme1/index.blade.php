@@ -193,7 +193,7 @@
                                                 $end = 'WIB';
                                             }
                                         @endphp
-                                        {{ \Carbon\Carbon::parse($event->date)->translatedFormat('H:i') }}
+                                        {{ \Carbon\Carbon::parse($event->date)->translatedFormat('H:i') }} {{ $end }}
                                     </p>
                                 </div>
                                 <div class="p-8 md:w-2/3">
