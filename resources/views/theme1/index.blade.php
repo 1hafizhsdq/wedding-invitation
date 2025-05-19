@@ -81,7 +81,6 @@
         <source src="/janjisuci.mp3" type="audio/mpeg">
         Browsermu tidak mendukung tag audio, upgrade donk!
     </audio> --}}
-    <audio id="playAudio" src="/janjisuci.mp3" autoplay></audio>
     <div class="min-h-screen relative">
         <header id="mainHeader" class="flex justify-between items-center px-6 py-4 bg-[#F9FAF5] fixed top-0 left-0 right-0 z-50">
             {{-- Logo Kiri --}}
@@ -109,7 +108,7 @@
                 <p class="hero-text text-[#76856A] text-xl md:text-2xl tracking-widest mb-8">{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->translatedFormat('d F Y') }}</p>
                 
                 <p class="text-[#3A4A3A] text-lg mb-6">Dear: {{ $to }}</p>
-                
+                <audio id="playAudio" src="/janjisuci.mp3" autoplay muted></audio>
                 <a href="#brideGroom" id="openInvitation" class="float invitation-btn px-8 py-3 rounded-full text-lg font-medium shadow-md">
                     Open Invitation
                 </a>
@@ -123,7 +122,7 @@
                     <h2 class="hero-text text-3xl md:text-4xl text-[#3A4A3A] mb-4" data-aos="fade-up" data-aos-duration="1000">Bride & Groom</h2>
                     <div class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-duration="3001">
                         <p class="text-[#76856A] italic mb-6">"Dan di antara tanda-tanda kekuasaan-Nya ialah bahwa Dia menciptakan untukmu dari jenismu sendiri pasangan-pasangan hidup, agar kamu merasa tenteram kepadanya, dan Dia jadikan di antara kamu rasa kasih sayang dan belas kasihan. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi orang yang berpikir."</p>
-                        <p class="text-[#C6B264]">Quran 30:21</p>
+                        <p class="text-[#C6B264]">Surat Ar-Rum ayat 21</p>
                     </div>
                 </div>
 
@@ -279,7 +278,7 @@
                     <div class="lg:w-1/2 bg-white rounded-lg shadow-sm p-6 md:p-8">
                         <h3 class="hero-text text-xl text-[#3A4A3A] mb-6 border-b pb-2">Leave a Message</h3>
                         
-                        <form class="space-y-6">
+                        {{-- <form class="space-y-6">
                             <div>
                                 <label for="name" class="block text-[#3A4A3A] font-medium mb-2">Your Name</label>
                                 <input type="text" id="name" placeholder="Enter your name" 
@@ -297,7 +296,8 @@
                                     Send Wishes
                                 </button>
                             </div>
-                        </form>
+                        </form> --}}
+                        <livewire:create-wish>
                     </div>
 
                     <!-- Wishes List Section -->
@@ -306,12 +306,13 @@
                         
                         <div class="bg-white rounded-lg shadow-sm p-6 h-[500px] overflow-y-auto" data-aos="flip-down" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
                             <div class="space-y-6">
-                                @foreach ($wedding->Wishes as $ucapan)
+                                {{-- @foreach ($wedding->Wishes as $ucapan)
                                     <div class="pb-6 border-b border-[#F0F0F0]">
                                         <h4 class="font-bold text-[#3A4A3A]">{{ $ucapan->name }}</h4>
                                         <p class="text-[#76856A] mt-2">{{ $ucapan->comment }}</p>
                                     </div>
-                                @endforeach
+                                @endforeach --}}
+                                <livewire:list-wish>
                             </div>
                         </div>
                     </div>
@@ -319,6 +320,7 @@
             </div>
         </section>
 
+        @if($wedding->id != 2)
         <!-- Wedding Gift Section -->
         <section class="py-16 px-4 bg-white">
             <div class="max-w-4xl mx-auto">
@@ -358,6 +360,7 @@
                 </div>
             </div>
         </section>
+        @endif
 
         <!-- Footer Section -->
         <footer class="py-12 px-4 bg-[#3A4A3A] text-white">
@@ -423,6 +426,12 @@
             const distance = targetPosition - startPosition;
             const duration = 2000;
             let start = null;
+            const audio = document.getElementById('playAudio');
+
+            audio.muted = false;
+            audio.play().catch((error) => {
+                console.log("Gagal memutar audio setelah unmute:", error);
+            });
 
             function step(timestamp) {
                 if (!start) start = timestamp;
