@@ -183,7 +183,7 @@
                                 <div class="p-8 md:w-1/3 border-b md:border-b-0 md:border-r border-[#F0F0F0]">
                                     <h3 class="hero-text text-2xl text-[#3A4A3A] mb-2">{{ $event->type }}</h3>
                                     <p class="text-[#C6B264] mb-1">{{ \Carbon\Carbon::parse($wedding->Detail[0]->date)->translatedFormat('l, d F Y') }}</p>
-                                    <p class="text-[#76856A]">{{ \Carbon\Carbon::parse($event->date)->translatedFormat('h:i') }} WIB</p>
+                                    <p class="text-[#76856A]">{{ \Carbon\Carbon::parse($event->date)->translatedFormat('H:i') }} {{ ($wedding->id == 1) ? '- 15.00 WIB' : ($wedding->id == 2) ? '- 17.30 WIB' : '' }}</p>
                                 </div>
                                 <div class="p-8 md:w-2/3">
                                     <p class="text-[#76856A] mb-4">{{ $event->address }}</p>
@@ -447,9 +447,12 @@
         window.addEventListener('load', () => {
             const audio = document.getElementById('playAudio');
 
-            // Coba paksa play (bisa gagal jika browser memblokir autoplay)
-            audio.play().catch((error) => {
-                console.log("Autoplay gagal, kemungkinan karena aturan browser.");
+            audio.play()
+            .then(() => {
+                console.log("Audio berhasil diputar secara otomatis.");
+            })
+            .catch((error) => {
+                console.log("Autoplay gagal:", error);
             });
         });
     </script>
